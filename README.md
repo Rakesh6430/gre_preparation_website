@@ -8,7 +8,7 @@ This repository hosts a lightweight GRE preparation plan webpage designed to hel
 ## Project Contents
 
 - `index.html` - main HTML page containing the GRE preparation plan layout and study guidance.
-- `readmi` - additional file added to the workspace with details about the Redmi smartphone brand.
+- `README.md` - additional file added to the workspace with details about the Redmi smartphone brand.
 
 ## Plan Details
 
