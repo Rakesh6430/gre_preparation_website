@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>60-Day GRE Study Plan | Interactive Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f4f8;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            padding: 2rem 1rem;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #1e3c72, #2b4c7c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .sub {
+            color: #4a627a;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .stats-bar {
+            background: white;
+            border-radius: 2rem;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat {
+            background: #f8fafc;
+            border-radius: 2rem;
+            padding: 0.3rem 1rem;
+            font-weight: 600;
+        }
+
+        .stat span {
+            color: #0f3b5f;
+            font-size: 1.2rem;
+        }
+
+        button {
+            background: #1e4a76;
+            border: none;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #0f2f4a;
+        }
+
+        .reset-btn {
+            background: #cbd5e1;
+            color: #1e2a3a;
+        }
+
+        .reset-btn:hover {
+            background: #94a3b8;
+        }
+
+        /* Phase sections */
+        .phase {
+            background: white;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid #e2edf7;
+        }
+
+        .phase-title {
+            background: #eef3fc;
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-left: 6px solid #2c6e9e;
+            color: #15507b;
+        }
+
+        .phase-desc {
+            padding: 0.5rem 1.5rem;
+            background: #f9fbfd;
+            font-size: 0.9rem;
+            color: #2c5a7a;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+
+        /* Day card */
+        .day-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            border: 1px solid #e9eff5;
+            transition: 0.1s;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .day-header {
+            background: #f9fafc;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #eef2f8;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .day-number {
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: #e2eaf3;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            color: #1f4e79;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            background: #eef3fc;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+        }
+
+        .task-list {
+            padding: 0.8rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            background: #fefefe;
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #edf2f7;
+        }
+
+        .task-item input {
+            margin-top: 0.2rem;
+            transform: scale(0.9);
+            flex-shrink: 0;
+        }
+
+        .task-text {
+            color: #2d3e50;
+            line-height: 1.4;
+        }
+
+        .task-count {
+            font-weight: 600;
+            color: #0f5b8c;
+            background: #e9f2f9;
+            border-radius: 1rem;
+            padding: 0 0.4rem;
+            font-size: 0.75rem;
+            margin-left: 0.25rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #5b7a9a;
+        }
+
+        @media (max-width: 700px) {
+            .days-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📘 60-Day GRE Study Plan</h1>
+        <div class="sub">Daily topics · Time blocks · Practice questions ✅</div>
+    </div>
+    <div class="stats-bar" id="statsBar">
+        <div class="stat">📅 Total Days: <span id="totalDays">60</span></div>
+        <div class="stat">✅ Days Completed: <span id="completedDays">0</span></div>
+        <div class="stat">📌 Overall Tasks Done: <span id="totalTasksDone">0</span></div>
+        <div class="stat">📊 Progress: <span id="progressPercent">0</span>%</div>
+        <button id="resetAllBtn" class="reset-btn">⟳ Reset All Progress</button>
+    </div>
+
+    <div id="planContainer"></div>
+    <div class="footer">
+        ⚡ Based on official ETS guidelines & 60-day strategy. Check tasks as you go — data saves locally in your browser.
+    </div>
+</div>
+
+<script>
+    // ---------- DATA : 60 Days with structured tasks (time blocks + practice questions) ----------
+    // Each day: title, tasks array (each task string includes time block and practice count)
+    // Days 1-15 Phase 1, 16-35 Phase2, 36-50 Phase3, 51-60 Phase4
+    function buildPlanData() {
+        const days = [];
+
+        // helper to push a day
+        function addDay(dayNum, phaseName, tasksArray) {
+            days.push({
+                day: dayNum,
+                phase: phaseName,
+                tasks: tasksArray
+            });
+        }
+
+        // ---- PHASE 1 : Days 1-15 Foundation ----
+        const phase1Tasks = {
+            1: ["📖 Vocab: 50 new words (Anki/Quizlet)", "🧮 Quant: Arithmetic (integers, fractions) – 20 practice Qs", "✍️ Verbal: Sentence Equivalence strategy – 10 SE Qs"],
+            2: ["📖 Vocab: Review 25 new + previous", "🧮 Quant: Ratios, proportions, percentages – 15 problems", "✍️ Verbal: Text Completion (1-blank) – 10 Qs"],
+            3: ["📖 Vocab: 25 new words + review weak", "🧮 Quant: Exponents, roots, scientific notation – 15 Qs", "✍️ Writing: Analyze an Issue – outline 2 essays"],
+            4: ["📖 Vocab: 25 new + cumulative review", "🧮 Quant: Algebra (linear equations, inequalities) – 20 Qs", "✍️ Verbal: Reading Comp – main idea (5 passages)"],
+            5: ["📖 Vocab: 25 new words", "🧮 Quant: Word problems (age, work, distance) – 15 Qs", "🎯 Mixed: 10 Quant + 10 Verbal (easy) – total 20 Qs"],
+            6: ["📝 FULL-LENGTH PRACTICE TEST #2 (timed)", "🔍 Review all mistakes – error log analysis (2hrs)", "📖 Vocab: 50 words review"],
+            7: ["📐 Quant: Geometry (lines, angles, triangles) – 25 Qs", "📖 Verbal: Reading Comp inference – 6 passages", "✍️ Writing: Argument essay outlines (2)"],
+            8: ["📖 Vocab: 30 new words", "📐 Quant: Coordinate geometry – 15 Qs", "✍️ Verbal: TC 2-blank & 3-blank – 10 Qs", "📘 Error log: 5 missed Qs review"],
+            9: ["📖 Vocab: 30 new words", "📊 Quant: Data interpretation (tables/graphs) – 15 Qs", "✍️ Verbal: SE advanced – 15 Qs", "✍️ Write 1 Issue essay (30min timed)"],
+            10: ["📖 Vocab: Review 100 weakest words", "🎲 Quant: Probability, combinations – 15 Qs", "📖 Verbal: RC function/purpose – 5 passages"],
+            11: ["📖 Vocab: 30 new words", "📊 Quant: Statistics (mean, median, SD) – 15 Qs", "✍️ Verbal: TC logic & clue words – 10 Qs", "✍️ Write 1 Argument essay (30min)"],
+            12: ["📖 Vocab: 30 new words", "🧮 Quant: Mixed quant review – 20 Qs", "📖 Verbal: Mixed verbal – 20 Qs", "📘 Error log deep review"],
+            13: ["📖 Vocab: 50 new + cumulative", "🔥 Quant: Hard problems all topics – 30 Qs", "📖 Verbal: Long RC passages (3+ Qs) – 8 passages", "✍️ Write Issue + Argument (timed 2 essays)"],
+            14: ["📝 FULL-LENGTH PRACTICE TEST #3 (simulated)", "📊 Error log analysis & categorization", "📖 Vocab: weak words only"],
+            15: ["📖 Vocab: Cumulative review 500+ words", "🧮 Quant: All easy/medium topics – 30 Qs", "📖 Verbal: All easy/medium – 30 Qs"]
+        };
+
+        // PHASE 2 Days 16-35 (Strategy & Timing) – representative detailed days, mix
+        for (let i = 16; i <= 35; i++) {
+            if (i === 16) addDay(16, "Phase 2: Strategy & Timing", ["📖 Vocab: Review 50 weak words", "⏱️ Quant timed: 20 Qs in 35 min (simulation)", "📘 Error log full review"]);
+            else if (i === 17) addDay(17, "Phase 2", ["📖 Vocab: 20 new + review", "⏱️ Verbal timed: 20 Qs in 30 min", "✍️ Issue essay timed + self-score"]);
+            else if (i === 18) addDay(18, "Phase 2", ["📖 Vocab: 20 new", "📊 Quant: Data + word problems timed – 25 Qs", "📖 Verbal: RC + TC timed – 20 Qs"]);
+            else if (i === 19) addDay(19, "Phase 2", ["📖 Vocab: Review 100 words", "🎯 Mixed timed: 20 Quant + 20 Verbal", "📘 Error log deep analysis"]);
+            else if (i === 20) addDay(20, "Phase 2", ["📖 Vocab: 20 new", "🔥 Quant: Hard algebra & geometry – 20 Qs", "🔥 Verbal: Hard SE & TC – 20 Qs"]);
+            else if (i === 21) addDay(21, "Phase 2", ["📝 Full-length practice test (weekend simulation)", "🔍 Review mistakes & error log", "📖 Vocab: high-frequency review"]);
+            else if (i === 22) addDay(22, "Phase 2", ["📖 Vocab: 30 new", "⏱️ Quant section practice – 20 Qs (35min)", "📖 Verbal section practice – 20 Qs (30min)"]);
+            else if (i === 23) addDay(23, "Phase 2", ["📖 Vocab: 30 new", "📐 Geometry & coordinate hard sets – 20 Qs", "✍️ Writing: Argument + Issue outlines"]);
+            else if (i === 24) addDay(24, "Phase 2", ["📖 Vocab: review 150", "📊 Data interpretation challenge – 20 Qs", "📖 Verbal: Long RC + SE 25 Qs"]);
+            else if (i === 25) addDay(25, "Phase 2", ["⏱️ Mixed timed set: 25 Quant + 25 Verbal", "📘 Error log review trends", "📖 Vocab 30 new"]);
+            else if (i === 26) addDay(26, "Phase 2", ["📝 Full-length test # (endurance)", "✍️ 2 essays timed", "🔍 Comprehensive error log"]);
+            else if (i === 27) addDay(27, "Phase 2", ["📖 Vocab: 30 new", "🧮 Quant: advanced word problems – 20 Qs", "📖 Verbal: TC (2 & 3 blank) – 15 Qs"]);
+            else if (i === 28) addDay(28, "Phase 2", ["📖 Vocab: 40 new", "📊 Mixed Quant: 30 problems (timed)", "📖 Mixed Verbal: 30 problems"]);
+            else if (i === 29) addDay(29, "Phase 2", ["⏱️ Full Quant section (35min) + Full Verbal (30min)", "✍️ Issue essay (timed)", "Error log session"]);
+            else if (i === 30) addDay(30, "Phase 2", ["📖 Vocab cumulative 700+ words", "🧩 Probability & combinatorics – 20 Qs", "📖 RC – main idea & inference – 6 passages"]);
+            else if (i === 31) addDay(31, "Phase 2", ["📝 Practice test – official style", "Review test & note weak spots", "Vocab weak words only"]);
+            else if (i === 32) addDay(32, "Phase 2", ["📖 Vocab: 25 new", "📐 Advanced geometry – 20 Qs", "✍️ Argument essay + self-grading"]);
+            else if (i === 33) addDay(33, "Phase 2", ["⏱️ Timed Verbal: 25 Qs (35min simulated)", "⏱️ Timed Quant: 25 Qs (40min)", "Error log + flashcards"]);
+            else if (i === 34) addDay(34, "Phase 2", ["📖 Vocab: final 100 high-frequency review", "Mixed medium-hard Quant – 30 Qs", "Mixed Verbal SE/TC – 30 Qs"]);
+            else if (i === 35) addDay(35, "Phase 2", ["📝 Full-length test #4 + deep review", "🎯 Strategy refinement", "Rest & light review"]);
+        }
+
+        // PHASE 3 Days 36-50 (Advanced & Endurance)
+        for (let i = 36; i <= 50; i++) {
+            if (i === 36) addDay(36, "Phase 3: Advanced & Endurance", ["📖 Vocab: 30 min (advanced words)", "🔥 Quant: Hardest question types – 25 Qs", "🔥 Verbal: Hard RC & 3-blank TC – 25 Qs", "✍️ Essay (Argument) 30min"]);
+            else if (i === 37) addDay(37, "Phase 3", ["📖 Vocab review 200 frequent", "📐 Quant: Mixed hardest (probability, series) – 25 Qs", "📖 Verbal: long passage inference – 6 passages", "Error log analysis"]);
+            else if (i === 38) addDay(38, "Phase 3", ["Full Verbal Section (timed 30min) + Full Quant Section (35min)", "✍️ Issue essay", "Vocab: 30 new + review"]);
+            else if (i === 39) addDay(39, "Phase 3", ["🎯 Mixed Advanced: 40 Quant + 40 Verbal (split day)", "Review tricky errors", "Writing: Argument essay revise"]);
+            else if (i === 40) addDay(40, "Phase 3", ["📝 Full-length practice test (endurance)", "📘 Error log + weak topics drilling", "Flashcards only"]);
+            else if (i === 41) addDay(41, "Phase 3", ["📖 Vocab 30 min", "🧮 Quant: data analysis & stats – 25 Qs", "📖 Verbal: sentence equivalence hard – 20 Qs", "Write Issue essay"]);
+            else if (i === 42) addDay(42, "Phase 3", ["⏱️ 2 mixed sections (Verbal+Quant) timed", "Review pacing strategies", "Error log review"]);
+            else if (i === 43) addDay(43, "Phase 3", ["📖 Vocab: 40 high-frequency", "🔥 All topics quant challenge – 30 Qs", "🔥 Reading Comp – 8 passages (varied)", "Argument essay timed"]);
+            else if (i === 44) addDay(44, "Phase 3", ["🎯 Full Quant section + Full Verbal section (back-to-back)", "Review mistakes", "Vocab light"]);
+            else if (i === 45) addDay(45, "Phase 3", ["📝 Practice test #5 (simulate real test day)", "Complete error log analysis", "Relax / review formulas"]);
+            else if (i === 46) addDay(46, "Phase 3", ["📖 Vocab: final 150", "📐 Geometry & coordinate hard – 20 Qs", "📖 Verbal: TC (3-blank) – 15 Qs", "Essay self-evaluation"]);
+            else if (i === 47) addDay(47, "Phase 3", ["Mixed timed: 35 Quant + 35 Verbal", "Analyze timing issues", "Practice essay templates"]);
+            else if (i === 48) addDay(48, "Phase 3", ["Full verbal & quant sections (adaptive simulation)", "Review previous error log", "mental endurance"]);
+            else if (i === 49) addDay(49, "Phase 3", ["📖 Vocab: all tough words", "Quant: 25 hardest word problems", "Verbal: 25 hardest SE/TC", "Write both essays"]);
+            else if (i === 50) addDay(50, "Phase 3", ["📝 FULL-LENGTH PRACTICE TEST #4 (final heavy)", "Complete review & score analysis", "Memorize quant formulas"]);
+        }
+
+        // PHASE 4 Days 51-60 (Final Polish)
+        const phase4Tasks = {
+            51: ["📘 Review all error log entries from all tests", "📖 Vocab: light review of weak 100 words", "✍️ 1 Issue essay (timed)"],
+            52: ["📖 Vocab final review (high-frequency 300 words)", "📐 Quant: 20 easy/medium problems (confidence)", "✍️ 1 Argument essay (timed)"],
+            53: ["📄 Quant formula sheet memorization + 20 easy problems", "📖 Verbal elimination strategies review", "Error log glance"],
+            54: ["📖 Verbal: road signs & elimination drills – 20 Qs", "📐 Quant: 15 mixed problems (medium)", "Rest & strategy notes"],
+            55: ["📝 FINAL FULL-LENGTH PRACTICE TEST #5 (official conditions)", "🔍 Deep review of mistakes", "Vocab: 10 min"],
+            56: ["📊 Deep review of test #5 mistakes (categorize)", "📖 Light verbal: 15 TC/SE", "🧮 Light quant: 15 problems"],
+            57: ["✅ Light practice: 10 Quant + 10 Verbal (easy)", "✍️ 1 Issue + 1 Argument essay (review structures)", "Organize test day bag"],
+            58: ["📖 No new studying, review test-day logistics", "Flashcards only (30 min)", "Relax & hydrate"],
+            59: ["🧘 Very light review (vocab app only)", "Mental preparation, sleep schedule", "✅ Check IDs/snacks"],
+            60: ["🎯 REST & mental prep – SLEEP well", "✅ Final checklist", "💪 Trust your preparation"]
+        };
+        for (let i = 51; i <= 60; i++) {
+            const tasksArr = phase4Tasks[i] || ["📖 Final vocab review", "🧮 Light quant practice", "✍️ Essay templates recap"];
+            addDay(i, "Phase 4: Final Polish", tasksArr);
+        }
+
+        // ensure for days missing from loops (overwrites not needed but check day 1-15 insertion)
+        // we already built days 1-15 from object. Add them.
+        for (let i = 1; i <= 15; i++) {
+            if (!days.some(d => d.day === i)) {
+                const taskList = phase1Tasks[i] || ["📖 Vocab review", "🧮 Quant practice 15 Qs", "📖 Verbal 15 Qs"];
+                addDay(i, "Phase 1: Foundation", taskList);
+            }
+        }
+        // sort by day number
+        days.sort((a,b) => a.day - b.day);
+        return days;
+    }
+
+    // Storage keys
+    const STORAGE_DAY_CHECK = "gre_day_completed";
+    const STORAGE_TASK_CHECKS = "gre_task_checks";
+
+    function getSavedDayStatus() {
+        const saved = localStorage.getItem(STORAGE_DAY_CHECK);
+        if (saved) return JSON.parse(saved);
+        return {};
+    }
+
+    function getSavedTaskStatus() {
+        const saved = localStorage.getItem(STORAGE_TASK_CHECKS);
+        if (saved) return JSON.parse(saved);
+        return {};
+    }
+
+    let dayCompletedMap = getSavedDayStatus();
+    let taskCheckMap = getSavedTaskStatus();
+
+    function saveDayStatus() {
+        localStorage.setItem(STORAGE_DAY_CHECK, JSON.stringify(dayCompletedMap));
+    }
+    function saveTaskStatus() {
+        localStorage.setItem(STORAGE_TASK_CHECKS, JSON.stringify(taskCheckMap));
+    }
+
+    // Helper to generate unique task key: day_index_taskIndex
+    function getTaskKey(day, taskIdx) {
+        return `d${day}_t${taskIdx}`;
+    }
+
+    function updateStats() {
+        const totalDays = 60;
+        let completedDaysCount = Object.values(dayCompletedMap).filter(v => v === true).length;
+        let totalTasks = 0;
+        let doneTasks = 0;
+        for (let key in taskCheckMap) {
+            if (taskCheckMap[key] === true) doneTasks++;
+        }
+        // compute total tasks from current plan days
+        const allDays = buildPlanData();
+        for (let d of allDays) {
+            totalTasks += d.tasks.length;
+        }
+        document.getElementById("completedDays").innerText = completedDaysCount;
+        document.getElementById("totalTasksDone").innerText = doneTasks;
+        const percent = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+        document.getElementById("progressPercent").innerText = percent;
+        document.getElementById("totalDays").innerText = totalDays;
+    }
+
+    function renderPlan() {
+        const daysData = buildPlanData();
+        const container = document.getElementById("planContainer");
+        container.innerHTML = "";
+        const phasesMap = new Map();
+        daysData.forEach(day => {
+            if (!phasesMap.has(day.phase)) phasesMap.set(day.phase, []);
+            phasesMap.get(day.phase).push(day);
+        });
+
+        for (let [phaseName, phaseDays] of phasesMap.entries()) {
+            const phaseDiv = document.createElement("div");
+            phaseDiv.className = "phase";
+            const titleDiv = document.createElement("div");
+            titleDiv.className = "phase-title";
+            titleDiv.innerText = phaseName;
+            const descDiv = document.createElement("div");
+            descDiv.className = "phase-desc";
+            if (phaseName.includes("Foundation")) descDiv.innerText = "🎯 Build core concepts, vocab foundation & error log. Daily practice ~3h weekdays.";
+            else if (phaseName.includes("Strategy")) descDiv.innerText = "⏱️ Timed sets, section simulations, advanced strategies & pacing.";
+            else if (phaseName.includes("Advanced")) descDiv.innerText = "🔥 Hardest question types, full-section stamina, essay refinement.";
+            else descDiv.innerText = "✅ Final review, light practice, test-day logistics & confidence.";
+            phaseDiv.appendChild(titleDiv);
+            phaseDiv.appendChild(descDiv);
+            const grid = document.createElement("div");
+            grid.className = "days-grid";
+            for (let dayObj of phaseDays) {
+                const dayNum = dayObj.day;
+                const tasks = dayObj.tasks;
+                const isDayComplete = dayCompletedMap[dayNum] || false;
+                const card = document.createElement("div");
+                card.className = "day-card";
+                const header = document.createElement("div");
+                header.className = "day-header";
+                header.innerHTML = `<div class="day-number">Day ${dayNum}</div>
+                                    <label class="checkbox-label"><input type="checkbox" class="day-complete-checkbox" data-day="${dayNum}" ${isDayComplete ? "checked" : ""}> <span>✔️ Mark Day Complete</span></label>`;
+                const taskListDiv = document.createElement("div");
+                taskListDiv.className = "task-list";
+                tasks.forEach((task, idx) => {
+                    const taskKey = getTaskKey(dayNum, idx);
+                    const isTaskChecked = taskCheckMap[taskKey] || false;
+                    const taskItem = document.createElement("div");
+                    taskItem.className = "task-item";
+                    taskItem.innerHTML = `<input type="checkbox" class="task-checkbox" data-day="${dayNum}" data-taskidx="${idx}" data-taskkey="${taskKey}" ${isTaskChecked ? "checked" : ""}>
+                                          <span class="task-text">${task}</span>`;
+                    taskListDiv.appendChild(taskItem);
+                });
+                card.appendChild(header);
+                card.appendChild(taskListDiv);
+                grid.appendChild(card);
+            }
+            phaseDiv.appendChild(grid);
+            container.appendChild(phaseDiv);
+        }
+        attachEventListeners();
+        updateStats();
+    }
+
+    function attachEventListeners() {
+        // day complete checkboxes
+        document.querySelectorAll(".day-complete-checkbox").forEach(cb => {
+            cb.addEventListener("change", (e) => {
+                const day = parseInt(e.target.getAttribute("data-day"));
+                dayCompletedMap[day] = e.target.checked;
+                saveDayStatus();
+                updateStats();
+            });
+        });
+        // task checkboxes
+        document.querySelectorAll(".task-checkbox").forEach(cb => {
+            cb.addEventListener("change", (e) => {
+                const taskKey = e.target.getAttribute("data-taskkey");
+                taskCheckMap[taskKey] = e.target.checked;
+                saveTaskStatus();
+                updateStats();
+                // optional: auto update day completion status if all tasks done? but we keep separate.
+            });
+        });
+    }
+
+    function resetAllProgress() {
+        if (confirm("⚠️ Reset all progress for all days and tasks? This cannot be undone.")) {
+            dayCompletedMap = {};
+            taskCheckMap = {};
+            saveDayStatus();
+            saveTaskStatus();
+            renderPlan();
+        }
+    }
+
+    document.getElementById("resetAllBtn").addEventListener("click", resetAllProgress);
+    renderPlan();
+</script>
+</body>
+</html>
